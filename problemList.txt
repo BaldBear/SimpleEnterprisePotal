@@ -1,0 +1,10 @@
+
+在第二次进行数据库访问时，报出下列异常：
+	java.sql.SQLNonTransientConnectionException: No operations allowed after connection closed.
+原因：由于Connection类被定义为static类型，因此一个dbUtil类中只有一个Connection对象，关闭后无法在对数据进行访问。而且在创建dbUtil对象时直接在类下面对其进行了初始化，因此所有方法共享一个dbUtil对象，最终导致第二个方法无法访问数据库。
+解决：修改connection的static修饰符，并在getConn()方法中对其进行初始化。
+
+db.properties无法读取：
+原因：使用idea创建properties文件时手动添加了后缀。
+解决：重新创建，不需要手动添加后缀，添加在resources文件夹下，编译后会自动添加到classpath的根路径下，引用路径可直接使用文件名。
+
